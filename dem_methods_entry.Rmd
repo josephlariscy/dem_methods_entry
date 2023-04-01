@@ -6,22 +6,162 @@ author: |
 fontsize: 12pt
 bibliography: references.bib
 output: pdf_document
+#  pdf_document:
+#    keep_tex: true
+#    extra_dependencies: caption
+
 #output:
 #  pdf_document:
 #classoption: twocolumn
 ---
 
-Demography is the study of human populations and how they change in size and composition through fertility, mortality, and migration. Demographic methods are the descriptive and modeling techniques used to measure and understand population size, change, composition, and distribution. Population scientists draw data from censuses, vital statistics systems, administrative records, and social surveys. Demographic models can estimate population processes for nations with incomplete censuses or vital statistics systems, adjust for inaccurate data (such as age misreporting), and forecast population trajectories into the future (Preston et al. 2001). The information produced with demographic methods informs researchers and policymakers about current and future demands for education, employment, housing, healthcare, and retirement funding.
+\let\thefootnote\relax\footnotetext{{\it Citation}: Lariscy, Joseph T. 2023. Demographic Methods. In {\it The Wiley-Blackwell Encyclopedia of Health, Illness, Behavior, and Society}., Second Edition. Edited by William C. Cockerham, Robert Dingwall, and Stella Quah. John Wiley and Sons, Ltd.}
 
-|        Many demographic methods focus on describing a population's age and sex composition, because age and sex are key determinants of population dynamics. Population pyramids are one such demographic tool for depicting a population's age and sex structure. Population pyramids are bar charts in which horizontal bars extend to the left (males) and right (females) from a central age axis and represent the size or proportion in each age group. Younger ages are shown at the bottom of the pyramid with progressively higher age groups moving up the figure. Population pyramids are only pyramid shaped for populations with sustained high fertility. For such populations experiencing rapid growth, each younger cohort is larger than the previous cohort. Among lower-fertility countries like the United States, the population pyramid is shaped like a rectangle or barrel. Figure 1 shows the population pyramid for the United States in 2020.
-
-[Figure 1 about here]
-
-```{r setup, include=FALSE, echo=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-|        Demographers also use the age dependency ratio to depict a population's age structure. The dependency ratio divides the number of dependent children (ages 0--14 years) and older adults (ages 65+ years) in the numerator by the number of working age adults (ages 15--65 years) in the denominator. High dependency ratios indicate large proportions of children and/or older adults relative to the working-age population. Dependency ratios are high in many developed societies due to a large number of older adults relative to workers. This population aging presents challenges for the diminishing number of workers to meet the retirement and healthcare needs of older adults.
+Demography is the study of human populations and how they change in size and composition through fertility, mortality, and migration. Demographic methods are the descriptive and modeling techniques used to measure and understand population size, change, composition, and distribution. Population scientists draw data from censuses, vital statistics systems, administrative records, and social surveys. Demographic models can estimate population processes for nations with incomplete censuses or vital statistics systems, adjust for inaccurate data (such as age misreporting), and forecast population trajectories into the future [@preston2001]. The information produced with demographic methods informs researchers and policymakers about current and future demands for education, employment, housing, healthcare, and retirement funding.
+
+|        Many demographic methods focus on describing a population's age and sex composition, because age and sex are key determinants of population dynamics. Population pyramids are one such demographic tool for depicting a population's age and sex structure. Population pyramids are bar charts in which horizontal bars extend to the left (males) and right (females) from a central age axis and represent the size or proportion in each age group. Younger ages are shown at the bottom of the pyramid with progressively higher age groups moving up the figure. Population pyramids are only pyramid shaped for populations with sustained high fertility. For such populations experiencing rapid growth, each younger cohort is larger than the previous cohort. Among lower-fertility countries like the United States, the population pyramid is shaped like a rectangle or barrel. Figure 1 shows the population pyramid for the United States in 2020.  
+  
+|        Demographers also use the age dependency ratio to depict a population's age structure. The dependency ratio divides the number of dependent children (ages 0--14 years) and older adults (ages 65+ years) in the numerator by the number of working age adults (ages 15--65 years) in the denominator. High dependency ratios indicate large proportions of children and/or older adults relative to the working-age population. Dependency ratios are high in many developed societies due to a large number of older adults relative to workers. This population aging presents challenges for the diminishing number of workers to meet the retirement and healthcare needs of older adults.  
+  
+```{r setup, include=FALSE}
+
+#![**Figure 1** \space\space\space Population pyramid for the United States, 2020  *Source*: 2020 American Community Survey, IPUMS-USA [@ruggles2023]](pyramid.png)
+
+#latex
+
+#\begin{figure}
+#  \includegraphics{pyramid.png}
+#  \caption*{{\bf Figure 1} \space\space\space Population pyramid for the United States, 2020 \newline {\it Source}: 2020 American Community Survey, IPUMS-USA \protect\cite{ruggles2023}}
+#\end{figure}
+```
+
+```{r pop_pyramid1, include=FALSE}
+
+library(readr)
+library(haven)
+
+urlfile="https://github.com/josephlariscy/dem_methods_entry/ACS2020.RData"
+
+load("ACS2020.RData")
+
+attach(data)
+
+table(AGE)
+summary(AGE)
+
+table(SEX)
+table(AGE,SEX)
+
+# Recode age
+agegrp <- AGE
+agegrp[AGE >=  0 & AGE <=  4] = 1
+agegrp[AGE >=  5 & AGE <=  9] = 2
+agegrp[AGE >= 10 & AGE <= 14] = 3
+agegrp[AGE >= 15 & AGE <= 19] = 4
+agegrp[AGE >= 20 & AGE <= 24] = 5
+agegrp[AGE >= 25 & AGE <= 29] = 6
+agegrp[AGE >= 30 & AGE <= 34] = 7
+agegrp[AGE >= 35 & AGE <= 39] = 8
+agegrp[AGE >= 40 & AGE <= 44] = 9
+agegrp[AGE >= 45 & AGE <= 49] = 10
+agegrp[AGE >= 50 & AGE <= 54] = 11
+agegrp[AGE >= 55 & AGE <= 59] = 12
+agegrp[AGE >= 60 & AGE <= 64] = 13
+agegrp[AGE >= 65 & AGE <= 69] = 14
+agegrp[AGE >= 70 & AGE <= 74] = 15
+agegrp[AGE >= 75 & AGE <= 79] = 16
+agegrp[AGE >= 80 & AGE <= 84] = 17
+agegrp[AGE >= 85 & AGE <= 96] = 18
+
+table(agegrp)
+
+# Crosstab of AGE and agegrp to make sure recodes are correct
+options(max.print = 10000)
+table(AGE,agegrp)
+
+table(agegrp,SEX)
+
+
+# I weight the ACS data so they estimate the 2020 US population
+xtabs(PERWT ~ agegrp + SEX, data = data)
+
+xtabs(PERWT ~ AGE + SEX, data = data) 
+   # Single-age values match those from the IPUMS SDA online analysis tool:
+   # https://sda.usa.ipums.org/sdaweb/analysis/exec?formid=tbf&sdaprog=tables&dataset=all_acs_samples&sec508=false&row=age&column=sex&filters=year%282020%29&weightlist=perwt&columnpct=on&cflevel=95&weightedn=on&color=on&ch_type=stackedbar&ch_color=yes&ch_width=600&ch_height=400&ch_orientation=vertical&ch_effects=use2D&decpcts=1&decse=1&decwn=1&decstats=2&csvformat=no&csvfilename=tables.csv
+   # Total: 329,504,815
+
+# Save xtabs table as "Data" rather than "Values"
+pyramid_data <- as.data.frame(xtabs(PERWT ~ agegrp + SEX, data = data))
+
+library(ggplot2)
+library(scales)
+library(extrafont)
+library(extrafontdb)
+
+font_import()
+```
+
+```{r pop_pyramid2, include=TRUE}
+
+# Population pyramid
+
+# Value labels for agegrp
+agegrp.lbl <- c("0\u20134", "5\u20139", "10\u201314", "15\u201319",
+                "20\u201324", "25\u201329", "30\u201334", "35\u201339",
+                "40\u201344", "45\u201349", "50\u201354", "55\u201359",
+                "60\u201364", "65\u201369", "70\u201374", "75\u201379",
+                "80\u201384", "85+")
+# \u2013 makes an endash
+
+# Make the male values negative so the bars extend to the left of 0
+pyramid_data$Freq <- ifelse(pyramid_data$SEX == 1,
+                            pyramid_data$Freq*-1, 
+                            pyramid_data$Freq)
+
+# This function makes the bottom axis values absolute value for men
+# and have a comma
+abs_comma <- function (Freq) {
+  format(abs(Freq), big.mark = ",", scientific = FALSE, trim = TRUE)
+}
+
+windowsFonts(A=windowsFont("Times New Roman"))
+
+
+windows(width = 15, height = 10)
+
+ggplot(pyramid_data, aes(x = agegrp, y = Freq, fill = SEX)) +
+  geom_bar(data = subset(pyramid_data, SEX == "1"),
+           stat = "identity", color = "black", fill = "lightgrey") +
+  geom_bar(data = subset(pyramid_data, SEX == "2"),
+           stat = "identity", color = "black", fill = "darkgrey") +
+  coord_flip() +
+  scale_x_discrete(labels = agegrp.lbl) +
+  scale_y_continuous(labels = abs_comma) +
+  ylab(expression(bold('Population'))) +
+  xlab(expression(bold('Age group'))) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.position = "none",
+        axis.text.x = element_text(color = "black", size = 12),
+        axis.text.y = element_text(color = "black", size = 12),
+        axis.title.x = element_text(size = 14),
+        axis.title.y = element_text(size = 14)) +
+  annotate("text", y = -9000000, x = 17, label = "Male",
+           fontface = 2, size = 5) +
+  annotate("text", y = 9000000, x = 17, label = "Female",
+           fontface = 2, size = 5)
+```
+  
+  
+**Figure 1** \space\space Population pyramid for the United States, 2020  
+*Source*: 2020 American Community Survey, IPUMS-USA [@ruggles2023]  
+  
+  
 |        Rates are the most fundamental demographic measure of population change. Rates are calculated as the count of a vital event within a specific time period (usually one year) divided by population size exposed to the risk of that event. By relating the number of events to the population at risk, rates allow for comparisons across subpopulations, place, and time. Rates are often multiplied by a constant (e.g., 1,000) to provide more interpretable values, especially when examining rare events. The mid-year population is often used as an approximation of the population size. For example, the crude death rate (CDR) is the number of deaths during a specific time period divided by the population size:
 
 $$
@@ -30,8 +170,10 @@ $$
 
 CDR is considered *crude* because it is sensitive to a population's age structure. If CDRs were compared between two populations, and population A has an older age structure than population B, then the CDR in population A will likely be higher regardless of the health status of each population. For this reason, demographic rates are often presented as age-specific rates.
 
-|        Life tables are one of the most important demographic methods for the study of mortality. Life tables use age-specific death rates to calculate life expectancy at birth and other age-related functions pertaining to mortality, such as number of survivors and deaths at each age and expected years of life remaining beyond ages other than birth [@preston2001]. Life expectancy is a popular summary indicator for describing the longevity of a population. The life expectancy at birth of the United States in 2020 was 76.4 years [@arias2022]. This value does not describe the longevity prospects of an actual birth cohort. Instead, period life tables describe the mortality prospects for a hypothetical cohort (also called a synthetic cohort) if individuals progressed through each age experiencing the age-specific mortality rates of a particular year. A cohort life table could only be constructed after most members of the cohort had died. In contrast, period life tables use death rates for each age in one year to present a current description of a population's longevity.
-|        Demographic methods for studying fertility also rely on rates. The crude birth rate (CBR), like the CDR, is the number of the event of interest (in this case, births), divided by the population size. The population in the denominator are not truly *at risk* of having a birth; it includes men as well as women who are too young or old to have a child. Therefore, fertility rates limit the denominator to women of childbearing ages (i.e., 15--49 years). Age-specific fertility rates are used to calculate the total fertility rate (TFR), which describes the average number of children women would have if they experienced the rates of a particular year throughout their reproductive ages. The TFR in 2020 ranged from a high of 6.9 children per woman in Niger to a low of 0.9 in South Korea [@UNpopdiv]. A TFR of 2.1 is considered *replacement level fertility* since this number of births would replace the mother and father, with an allowance for individuals who do not survive through adulthood. Reproduction rates further refine the measurement of fertility by only including female children in the numerator a`nd considering mortality risk of mothers to show whether a generation of women reproduce themselves or produce a surplus of female births (suggesting population growth) or deficit (suggesting population stability or decline).
+|        Life tables are one of the most important demographic methods for the study of mortality. Life tables use age-specific death rates to calculate life expectancy at birth and other age-related functions pertaining to mortality, such as number of survivors and deaths at each age and expected years of life remaining beyond ages other than birth [@preston2001]. Life expectancy is a popular summary indicator for describing the longevity of a population. The life expectancy at birth of the United States in 2020 was 76.4 years [@arias2022]. This value does not describe the longevity prospects of an actual birth cohort. Instead, period life tables describe the mortality prospects for a hypothetical cohort (also called a synthetic cohort) if individuals progressed through each age experiencing the age-specific mortality rates of a particular year. A cohort life table could only be constructed after most members of the cohort had died. In contrast, period life tables use death rates for each age in one year to present a current description of a population's longevity.  
+  
+|        Demographic methods for studying fertility also rely on rates. The crude birth rate (CBR), like the CDR, is the number of the event of interest (in this case, births), divided by the population size. The population in the denominator are not truly *at risk* of having a birth; it includes men as well as women who are too young or old to have a child. Therefore, fertility rates limit the denominator to women of childbearing ages (i.e., 15--49 years). Age-specific fertility rates are used to calculate the total fertility rate (TFR), which describes the average number of children women would have if they experienced the rates of a particular year throughout their reproductive ages. The TFR in 2020 ranged from a high of 6.9 children per woman in Niger to a low of 0.9 in South Korea [@UNpopdiv]. A TFR of 2.1 is considered *replacement level fertility* since this number of births would replace the mother and father, with an allowance for individuals who do not survive through adulthood. Reproduction rates further refine the measurement of fertility by only including female children in the numerator a`nd considering mortality risk of mothers to show whether a generation of women reproduce themselves or produce a surplus of female births (suggesting population growth) or deficit (suggesting population stability or decline).  
+  
 |        TFR resembles life expectancy in two keys ways. First, life expectancy and TFR translate an aggregate measure into an indicator that is relatable to an individual's life events. Second, both indicators are period measures that describe a hypothetical cohort, rather than an actual birth cohort, to provide a timely description of how a population experiences a demographic phenomenon.
 
 SEE ALSO: Childbearing, International Practices; Gender and Life Expectancy; Migration; Socioeconomic Status and Mortality

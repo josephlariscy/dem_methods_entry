@@ -85,7 +85,6 @@ table(AGE,agegrp)
 
 table(agegrp,SEX)
 
-
 # I weight the ACS data so they estimate the 2020 US population
 xtabs(PERWT ~ agegrp + SEX, data = data)
 
@@ -99,10 +98,13 @@ pyramid_data <- as.data.frame(xtabs(PERWT ~ agegrp + SEX, data = data))
 
 library(ggplot2)
 library(scales)
-library(extrafont)
-library(extrafontdb)
+#library(rlang)
+#library(extrafont)
+#library(tidyverse)
+#library(showtext)
 
-font_import()
+#font_add("Times New Roman", regular = "timesnewroman-regular.otf")
+
 ```
 
 ```{r pop_pyramid2, include=TRUE}
@@ -130,8 +132,8 @@ abs_comma <- function (Freq) {
 
 windowsFonts(A=windowsFont("Times New Roman"))
 
-
 windows(width = 15, height = 10)
+#par(Family = "Times New Roman")
 
 ggplot(pyramid_data, aes(x = agegrp, y = Freq, fill = SEX)) +
   geom_bar(data = subset(pyramid_data, SEX == "1"),
@@ -157,7 +159,6 @@ ggplot(pyramid_data, aes(x = agegrp, y = Freq, fill = SEX)) +
            fontface = 2, size = 5)
 ```
   
-  
 **Figure 1** \space\space Population pyramid for the United States, 2020  
 *Source*: 2020 American Community Survey, IPUMS-USA [@ruggles2023]  
   
@@ -178,4 +179,6 @@ CDR is considered *crude* because it is sensitive to a population's age structur
 
 SEE ALSO: Childbearing, International Practices; Gender and Life Expectancy; Migration; Socioeconomic Status and Mortality
 
-**REFERENCES**
+**REFERENCES**  
+  
+  

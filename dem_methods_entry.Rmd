@@ -24,23 +24,22 @@ an indent from the beginning of the footnote. -->
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Demography is the study of human populations and how they change in size and composition through fertility, mortality, and migration. Demographic methods are the descriptive and modeling techniques used to measure and understand population size, change, composition, and distribution. Population scientists draw data from censuses, vital statistics systems, administrative records, and social surveys. Demographic models can estimate population processes for nations with incomplete censuses or vital statistics systems, adjust for inaccurate data (such as age misreporting), and forecast population trajectories into the future [@preston2001]. The information produced with demographic methods informs researchers and policymakers about current and future demands for education, employment, housing, healthcare, and retirement funding.
-
+Demography is the study of human populations and how they change in size and composition through fertility, mortality, and migration. Demographic methods are the descriptive and modeling techniques used to measure and understand population size, change, composition, and distribution. Population scientists draw data from censuses, vital statistics systems, administrative records, and social surveys. Demographic models can estimate population processes for nations with incomplete censuses or vital statistics systems, adjust for inaccurate data (such as age misreporting), and forecast population trajectories into the future [@preston2001]. The information produced with demographic methods informs researchers and policymakers about current and future demands for education, employment, housing, healthcare, and retirement funding.  
+  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Many demographic methods focus on describing a population's age and sex composition, because age and sex are key determinants of population dynamics. Population pyramids are one such demographic tool for depicting a population's age and sex structure. Population pyramids are bar charts in which horizontal bars extend to the left (males) and right (females) from a central age axis and represent the size or proportion in each age group. Younger ages are shown at the bottom of the pyramid with progressively higher age groups moving up the figure. Population pyramids are only pyramid shaped for populations with sustained high fertility. For such populations experiencing rapid growth, each younger cohort is larger than the previous cohort. Among lower-fertility countries like the United States, the population pyramid is shaped like a rectangle or barrel. Figure 1 shows the population pyramid for the United States in 2020.  
   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Demographers also use the age dependency ratio to depict a population's age structure. The dependency ratio divides the number of dependent children (ages 0--14 years) and older adults (ages 65+ years) in the numerator by the number of working age adults (ages 15--65 years) in the denominator. High dependency ratios indicate large proportions of children and/or older adults relative to the working-age population. Dependency ratios are high in many developed societies due to a large number of older adults relative to workers. This population aging presents challenges for the diminishing number of workers to meet the retirement and healthcare needs of older adults.  
   
-```{r setup, include=FALSE}
+<!--
+ Image captions for R and Latex - saving for reference later
 
-# Image captions for R and Latex - saving for reference later
+![**Figure 1** \space\space\space Population pyramid for the United States, 2020  *Source*: 2020 American Community Survey, IPUMS-USA [@ruggles2023]](pyramid.png)
 
-#![**Figure 1** \space\space\space Population pyramid for the United States, 2020  *Source*: 2020 American Community Survey, IPUMS-USA [@ruggles2023]](pyramid.png)
-
-#\begin{figure}
-#  \includegraphics{pyramid.png}
-#  \caption*{{\bf Figure 1} \space\space\space Population pyramid for the United States, 2020 \newline {\it Source}: 2020 American Community Survey, IPUMS-USA \protect\cite{ruggles2023}}
-#\end{figure}
-```
+\begin{figure}
+  \includegraphics{pyramid.png}
+  \caption*{{\bf Figure 1} \space\space\space Population pyramid for the United States, 2020 \newline {\it Source}: 2020 American Community Survey, IPUMS-USA \protect\cite{ruggles2023}}
+\end{figure}
+-->
 
 ```{r pop_pyramid1, include=FALSE}
 
@@ -154,12 +153,12 @@ ggplot(pyramid_data, aes(x = agegrp, y = Freq, fill = SEX)) +
 **Figure 1** \space\space Population pyramid for the United States, 2020  
 *Source*: 2020 American Community Survey, IPUMS-USA [@ruggles2023]  
   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Rates are the most fundamental demographic measure of population change. Rates are calculated as the count of a vital event within a specific time period (usually one year) divided by population size exposed to the risk of that event. By relating the number of events to the population at risk, rates allow for comparisons across subpopulations, place, and time. Rates are often multiplied by a constant (e.g., 1,000) to provide more interpretable values, especially when examining rare events. The mid-year population is often used as an approximation of the population size. For example, the crude death rate (CDR) is the number of deaths during a specific time period divided by the population size:
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Rates are the most fundamental demographic measure of population change. Rates are calculated as the count of a vital event within a specific time period (usually one year) divided by population size exposed to the risk of that event. By relating the number of events to the population at risk, rates allow for comparisons across subpopulations, place, and time. Rates are often multiplied by a constant (e.g., 1,000) to provide more interpretable values, especially when examining rare events. The mid-year population is often used as an approximation of the population size. For example, the crude death rate (CDR) is the number of deaths during a specific time period divided by the population size:  
+  
 $$
 CDR = \frac{Number\;of\;deaths}{Population\;size}\times1,000.  
 $$
-
+  
 CDR is considered *crude* because it is sensitive to a population's age structure. If CDRs were compared between two populations, and population A has an older age structure than population B, then the CDR in population A will likely be higher regardless of the health status of each population. For this reason, demographic rates are often presented as age-specific rates.  
   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Life tables are one of the most important demographic methods for the study of mortality. Life tables use age-specific death rates to calculate life expectancy at birth and other age-related functions pertaining to mortality, such as number of survivors and deaths at each age and expected years of life remaining beyond ages other than birth [@preston2001]. Life expectancy is a popular summary indicator for describing the longevity of a population. The life expectancy at birth of the United States in 2020 was 76.4 years [@arias2022]. This value does not describe the longevity prospects of an actual birth cohort. Instead, period life tables describe the mortality prospects for a hypothetical cohort (also called a synthetic cohort) if individuals progressed through each age experiencing the age-specific mortality rates of a particular year. A cohort life table could only be constructed after most members of the cohort had died. In contrast, period life tables use death rates for each age in one year to present a current description of a population's longevity.  
@@ -171,5 +170,4 @@ CDR is considered *crude* because it is sensitive to a population's age structur
 SEE ALSO: Childbearing, International Practices; Gender and Life Expectancy; Migration; Socioeconomic Status and Mortality  
   
 **REFERENCES**  
-  
   

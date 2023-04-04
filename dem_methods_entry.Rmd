@@ -48,9 +48,7 @@ library(readr)
 library(haven)
 
 urlfile="https://github.com/josephlariscy/dem_methods_entry/ACS2020.RData"
-
 load("ACS2020.RData")
-
 attach(data)
 
 table(AGE)
@@ -92,9 +90,9 @@ table(agegrp,SEX)
 xtabs(PERWT ~ agegrp + SEX, data = data)
 
 xtabs(PERWT ~ AGE + SEX, data = data) 
-   # Single-age values match those from the IPUMS SDA online analysis tool:
-   # https://sda.usa.ipums.org/sdaweb/analysis/exec?formid=tbf&sdaprog=tables&dataset=all_acs_samples&sec508=false&row=age&column=sex&filters=year%282020%29&weightlist=perwt&columnpct=on&cflevel=95&weightedn=on&color=on&ch_type=stackedbar&ch_color=yes&ch_width=600&ch_height=400&ch_orientation=vertical&ch_effects=use2D&decpcts=1&decse=1&decwn=1&decstats=2&csvformat=no&csvfilename=tables.csv
-   # Total: 329,504,815
+# Single-age values match those from the IPUMS SDA online analysis tool:
+# https://sda.usa.ipums.org/sdaweb/analysis/exec?formid=tbf&sdaprog=tables&dataset=all_acs_samples&sec508=false&row=age&column=sex&filters=year%282020%29&weightlist=perwt&columnpct=on&cflevel=95&weightedn=on&color=on&ch_type=stackedbar&ch_color=yes&ch_width=600&ch_height=400&ch_orientation=vertical&ch_effects=use2D&decpcts=1&decse=1&decwn=1&decstats=2&csvformat=no&csvfilename=tables.csv
+# Total: 329,504,815
 
 # Save xtabs table as "Data" rather than "Values"
 pyramid_data <- as.data.frame(xtabs(PERWT ~ agegrp + SEX, data = data))
@@ -102,7 +100,7 @@ pyramid_data <- as.data.frame(xtabs(PERWT ~ agegrp + SEX, data = data))
 library(ggplot2)
 library(scales)
 library(extrafont)
-library(extrafontdb)
+#library(extrafontdb)
 ```
 
 ```{r pop_pyramid2, include=TRUE}
@@ -153,7 +151,6 @@ ggplot(pyramid_data, aes(x = agegrp, y = Freq, fill = SEX)) +
   annotate("text", y = 9000000, x = 17, label = "Female",
            fontface = 2, size = 5, family = "serif")
 ```
-  
 **Figure 1** \space\space Population pyramid for the United States, 2020  
 *Source*: 2020 American Community Survey, IPUMS-USA [@ruggles2023]  
   

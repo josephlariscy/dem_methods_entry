@@ -5,10 +5,20 @@ author: |
   | University of Memphis, USA
 fontsize: 12pt
 bibliography: references.bib
-output: pdf_document
+#output: pdf_document
+output: 
+  pdf_document: 
+header-includes:
+- \usepackage[hang,flushmargin]{footmisc}
+#output:
+#  pdf_document:
+#classoption: twocolumn
 ---
 
-\let\thefootnote\relax\footnotetext{{\it Citation}: Lariscy, Joseph T. Forthcoming. "Demographic Methods." In {\it The Wiley-Blackwell Encyclopedia of Health, Illness, Behavior, and Society}, Second Edition. Edited by William C. Cockerham, Robert Dingwall, and Stella Quah. John Wiley and Sons, Ltd.}
+<!-- \let\thefootnote\relax\footnotetext removes the subscript marker from the
+footnote. Adding the Latex package footmisc and the options in the YAML removes
+an indent from the beginning of the footnote. -->
+\let\thefootnote\relax\footnotetext{{\it Citation}: Lariscy, Joseph T. Invited for consideration. ``Demographic Methods.'' In {\it The Wiley-Blackwell Encyclopedia of Health, Illness, Behavior, and Society}, Second Edition. Edited by William C. Cockerham, Robert Dingwall, and Stella Quah. John Wiley and Sons, Ltd.}
 
 ```{r include = FALSE}
 knitr::opts_chunk$set(echo = FALSE)

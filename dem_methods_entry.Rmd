@@ -5,6 +5,8 @@ author: |
   | University of Memphis, USA
 fontsize: 12pt
 bibliography: references.bib
+link-citations: true
+linkcolor: blue
 #output: pdf_document
 output: 
   pdf_document: 

@@ -20,7 +20,7 @@ header-includes:
 <!-- \let\thefootnote\relax\footnotetext removes the subscript marker from the
 footnote. Adding the Latex package footmisc and the options in the YAML removes
 an indent from the beginning of the footnote. -->
-\let\thefootnote\relax\footnotetext{{\it Citation}: Lariscy, Joseph T. Invited for consideration. ``Demographic Methods.'' In {\it The Wiley-Blackwell Encyclopedia of Health, Illness, Behavior, and Society}, Second Edition. Edited by William C. Cockerham, Robert Dingwall, and Stella Quah. John Wiley and Sons, Ltd.}
+\let\thefootnote\relax\footnotetext{{\it Citation}: Lariscy, Joseph T. Forthcoming. ``Demographic Methods.'' In {\it The Wiley-Blackwell Encyclopedia of Health, Illness, Behavior, and Society}, Second Edition. Edited by William C. Cockerham, Robert Dingwall, and Stella Quah. John Wiley and Sons, Ltd.}
 
 ```{r include = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -33,7 +33,7 @@ Demography is the study of human populations and how they change in size and com
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Demographers also use the age dependency ratio to depict a population's age structure. The dependency ratio divides the number of dependent children (ages 0--14 years) and older adults (ages 65+ years) in the numerator by the number of working age adults (ages 15--65 years) in the denominator. High dependency ratios indicate large proportions of children and/or older adults relative to the working-age population. Dependency ratios are high in many developed societies due to a large number of older adults relative to workers. This population aging presents challenges for the diminishing number of workers to meet the retirement and healthcare needs of older adults.  
   
 <!--
- Image captions for R and Latex - saving for reference later
+ Captions for inserted images in R and Latex - saving for reference later
 
 ![**Figure 1** \space\space\space Population pyramid for the United States, 2020  *Source*: 2020 American Community Survey, IPUMS-USA [@ruggles2023]](pyramid.png)
 
